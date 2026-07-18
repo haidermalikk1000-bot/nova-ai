@@ -6,7 +6,6 @@ import { generate } from "./chatbot.js";
 
 dotenv.config();
 const app = express();
-const PORT = 3000;
 
 const allowedOrigins = [
   "https://nova-ai-chatbot.netlify.app",
