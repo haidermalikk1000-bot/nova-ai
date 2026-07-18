@@ -23,8 +23,12 @@ function ChatInput({ sessionId, chatId, setChatId, setMessages, onChatCreated })
     setLoading(true);
     if (textareaRef.current) textareaRef.current.style.height = "auto";
 
-    // 1. Optimistic UI: show user message immediately
-    setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
+    // Show user message + Thinking bubble
+    setMessages(prev => [
+      ...prev, 
+      { role: 'user', content: userMsg },
+      { role: 'assistant', content: 'Thinking...', isThinking: true }
+    ]);
 
     try {
       const res = await fetch('http://localhost:3000/chat', {
@@ -36,12 +40,23 @@ function ChatInput({ sessionId, chatId, setChatId, setMessages, onChatCreated })
 
       if (!chatId) {
         setChatId(data.chatId);
-        onChatCreated(); // refresh sidebar history
+        onChatCreated();
       }
-      setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
+      
+      // Replace Thinking... with real response
+      setMessages(prev => {
+        const newMsgs = [...prev];
+        newMsgs[newMsgs.length - 1] = { role: 'assistant', content: data.message };
+        return newMsgs;
+      });
+
     } catch (err) {
       console.error("Send failed:", err);
-      setMessages(prev => [...prev, { role: 'assistant', content: "Error: Could not reach Nova AI." }]);
+      setMessages(prev => {
+        const newMsgs = [...prev];
+        newMsgs[newMsgs.length - 1] = { role: 'assistant', content: "Error: Could not reach Nova AI." };
+        return newMsgs;
+      });
     }
     setLoading(false);
   };

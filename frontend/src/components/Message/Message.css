@@ -105,6 +105,62 @@
 
 
 
+/* Better Thinking Pulse - Glow + Fade */
+.ai-message.thinking {
+  background: linear-gradient(90deg, #f5f5f5, #e8e8e8, #f5f5f5);
+  background-size: 200% 100%;
+  color: #555;
+  font-style: normal;
+  font-weight: 500;
+  position: relative;
+  animation: thinking-shimmer 2s infinite linear, thinking-pulse 2s ease-in-out infinite;
+  border: 1px solid #e0e0e0;
+}
+
+.ai-message.thinking::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #666;
+  border-radius: 50%;
+  animation: thinking-dot 1.2s infinite ease-in-out;
+}
+
+@keyframes thinking-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes thinking-pulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes thinking-dot {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(-50%) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
 
 
 /* Mobile */

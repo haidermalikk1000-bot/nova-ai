@@ -17,6 +17,7 @@ function ChatArea({ messages, setMessages, sessionId, chatId, setChatId, onChatC
               key={index}
               role={message.role}
               content={message.content}
+              isThinking={message.isThinking}
             />
           ))
         )}
