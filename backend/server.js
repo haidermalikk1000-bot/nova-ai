@@ -6,6 +6,7 @@ import { generate } from "./chatbot.js";
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3000; // FIX 1
 
 const allowedOrigins = [
   "https://nova-ai-chatbot.netlify.app",
@@ -107,6 +108,6 @@ app.get("/", (req, res) => {
   res.send("NOVA AI");
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, '0.0.0.0', () => { // FIX 2
   console.log(`Server running on ${PORT}`);
 });
