@@ -108,6 +108,6 @@ app.get("/", (req, res) => {
   res.send("NOVA AI");
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
